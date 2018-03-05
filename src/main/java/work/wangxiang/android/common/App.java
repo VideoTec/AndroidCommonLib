@@ -18,7 +18,7 @@ public class App extends Application {
         INSTANCE = this;
     }
 
-    public App getCtx() {
+    public static App getCtx() {
         return INSTANCE;
     }
 }

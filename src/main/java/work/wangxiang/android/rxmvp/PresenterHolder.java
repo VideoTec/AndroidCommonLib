@@ -1,7 +1,6 @@
-package work.wangxiang.android.common;
-import android.util.Log;
+package work.wangxiang.android.rxmvp;
 
-import java.lang.reflect.ParameterizedType;
+import work.wangxiang.utils.TypeUtils;
 
 /**
  * PresenterHolder 功能:
@@ -14,17 +13,19 @@ import java.lang.reflect.ParameterizedType;
  * 使用匿名类构建对象的原因，参考:
  * http://josh-persistence.iteye.com/blog/2165613
  *
+ * 使用场景:
+ * 用于没有继承 RxMvp 基类的 activity 和 fragment
+ *
  * Created by wangxiang on 2018/3/3.
  */
 
-public class PresenterHolder<M, P extends PresenterBase>{
-    private static final String TAG = "PresenterHolder";
+public class PresenterHolder<M, P extends PresenterBase> {
     private P presenter;
 
     @SuppressWarnings("unchecked")
-    protected PresenterHolder(Object view) {
-        M model = createInstance(0);
-        presenter = createInstance(1);
+    PresenterHolder(Object view) {
+        M model = TypeUtils.getTypeInstance(this, 0);
+        presenter = TypeUtils.getTypeInstance(this, 1);
         if (presenter != null) {
             presenter.setMV(model, view);
         }
@@ -40,16 +41,5 @@ public class PresenterHolder<M, P extends PresenterBase>{
 
     public void onUIStop() {
         presenter.stop();
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> T createInstance(int index) {
-        try {
-            ParameterizedType pT = (ParameterizedType) getClass().getGenericSuperclass();
-            return ((Class<T>)pT.getActualTypeArguments()[index]).newInstance();
-        } catch (Exception e) {
-            Log.e(TAG, "create m & p instance exception", e);
-        }
-        return null;
     }
 }

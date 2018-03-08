@@ -1,4 +1,4 @@
-package work.wangxiang.android.common;
+package work.wangxiang.android.rxmvp;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -6,7 +6,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * base presenter
  * 1. 持有 model 和 view 接口的实例
- * 2. 管理 RxJava 对象的集合
+ * 2. 管理 RxJava Disposable 对象集合
  *
  * Created by wangxiang on 2018/3/3.
  */

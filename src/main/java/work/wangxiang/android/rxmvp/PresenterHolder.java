@@ -13,8 +13,8 @@ import work.wangxiang.utils.TypeUtils;
  * 使用匿名类构建对象的原因，参考:
  * http://josh-persistence.iteye.com/blog/2165613
  *
- * 使用场景:
- * 用于没有继承 RxMvp 基类的 activity 和 fragment
+ * 这是一个辅助类，使用场景:
+ * 使用于用于没有继承 RxMvpAppCompatActivity RxMvpFragment 的 activity 和 fragment
  *
  * Created by wangxiang on 2018/3/3.
  */

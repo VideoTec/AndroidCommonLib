@@ -19,6 +19,8 @@ public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment
     protected P presenter;
 
     protected abstract int getLayoutId();
+    protected abstract void initView(View rootView);
+    protected abstract void initData();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -33,8 +35,13 @@ public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(getLayoutId(), container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(getLayoutId(), container, false);
+        initView(view);
+        initData();
+        return view;
     }
 
     @Override

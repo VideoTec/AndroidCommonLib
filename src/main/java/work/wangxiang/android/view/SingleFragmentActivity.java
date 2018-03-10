@@ -14,13 +14,15 @@ import work.wangxiang.android.common.R;
  */
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
-
     protected abstract Fragment getFragment();
+    protected void getIntentArgs() {}
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
+
+        getIntentArgs();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);

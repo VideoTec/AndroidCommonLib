@@ -1,5 +1,7 @@
 package work.wangxiang.android.rxmvp;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +21,7 @@ public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment
     protected P presenter;
 
     protected abstract int getLayoutId();
-    protected abstract void initView(View rootView);
+    protected abstract void initView(View rootView, ViewDataBinding binding);
     protected abstract void initData();
 
     @Override
@@ -38,10 +40,12 @@ public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
-        initView(view);
+        ViewDataBinding binding = DataBindingUtil
+                .inflate(inflater, getLayoutId(), container, false);
+        View root = binding.getRoot();
+        initView(root, binding);
         initData();
-        return view;
+        return root;
     }
 
     @Override

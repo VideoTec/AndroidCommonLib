@@ -1,6 +1,10 @@
 package work.wangxiang.android.common;
 
 import android.app.Application;
+import android.util.Log;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 /**
  * custom application class
@@ -10,12 +14,15 @@ import android.app.Application;
  */
 
 public class App extends Application {
+    private final static String TAG = "App";
     private static App INSTANCE;
 
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+
+        RxJavaPlugins.setErrorHandler(throwable -> Log.e(TAG, "exception after RxJava unsubscribe", throwable));
     }
 
     public static App getCtx() {

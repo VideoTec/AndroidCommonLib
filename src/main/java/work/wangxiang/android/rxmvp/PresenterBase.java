@@ -26,6 +26,7 @@ public class PresenterBase<M, V> {
     }
 
     void stop() {
+        // 允许恢复后，继续添加 disposable 对象。
         compositeDisposable.clear();
     }
 }

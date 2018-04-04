@@ -19,6 +19,7 @@ import work.wangxiang.utils.TypeUtils;
 
 public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment {
     protected P presenter;
+    protected M model;
 
     protected abstract int getLayoutId();
     protected abstract void initView(View rootView, ViewDataBinding binding);
@@ -28,7 +29,10 @@ public abstract class RxMvpFragment<M, P extends PresenterBase> extends Fragment
     @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        M model = TypeUtils.getTypeInstance(this, 0);
+        /* 不同的 view 可共用同一个 model 实例 */
+        if (model == null) {
+            model = TypeUtils.getTypeInstance(this, 0);
+        }
         presenter = TypeUtils.getTypeInstance(this, 1);
         if (presenter != null) {
             presenter.setMV(model, this);

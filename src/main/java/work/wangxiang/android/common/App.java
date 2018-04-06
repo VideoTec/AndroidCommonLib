@@ -1,7 +1,10 @@
 package work.wangxiang.android.common;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -27,5 +30,15 @@ public class App extends Application {
 
     public static App getCtx() {
         return INSTANCE;
+    }
+
+    public void showSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    public void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 }
